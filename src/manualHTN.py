@@ -221,6 +221,8 @@ def produce (state, ID, item):
 	if item == 'wood': 
 		return [('produce_wood', ID)]
 	# your code here
+
+	# for items
 	elif item == 'cart': 
 		return [('produce_cart', ID)]
 	elif item == 'coal': 
@@ -237,6 +239,8 @@ def produce (state, ID, item):
 		return [('produce_rail', ID)]	
 	elif item == 'stick': 
 		return [('produce_stick', ID)]
+	
+	# for tools
 	elif item == 'wooden_axe':
 		# this check to make sure we're not making multiple axes
 		if state.made_wooden_axe[ID] is True:
@@ -370,7 +374,7 @@ def smelt_ore_in_furnace (state, ID):
 pyhop.declare_methods ('produce_wood', punch_for_wood)
 pyhop.declare_methods ('produce_wooden_axe', craft_wooden_axe_at_bench)
 
-# do we need these?
+# do we need these???
 
 pyhop.declare_methods ('produce_stone_axe', craft_stone_axe_at_bench)
 pyhop.declare_methods ('produce_iron_pickaxe', craft_iron_pickaxe_at_bench)
@@ -394,6 +398,31 @@ state.time = {'agent': 4}
 state.wooden_axe = {'agent': 0}
 state.made_wooden_axe = {'agent': False}
 # your code here 
+
+# for items
+state.cart = {'agent': 0}
+state.cobble = {'agent': 0}
+state.ingot = {'agent': 0}
+state.ore = {'agent': 0}
+state.plank = {'agent': 0}
+state.rail = {'agent': 0}
+state.stick = {'agent': 0}
+
+# for tools
+state.iron_axe = {'agent': 0}
+state.made_iron_axe = {'agent': False}
+state.wooden_pickaxe = {'agent': 0}
+state.made_wooden_pickaxe = {'agent': False}
+state.stone_pickaxe = {'agent': 0}
+state.made_stone_pickaxe = {'agent': False}
+state.iron_pickaxe = {'agent': 0}
+state.made_iron_pickaxe = {'agent': False}
+state.stone_axe = {'agent': 0}
+state.made_stone_axe = {'agent': False}
+state.furnace = {'agent': 0}
+state.made_furnace = {'agent': False}
+state.bench = {'agent': 0}
+state.made_bench = {'agent': False}
 
 # pyhop.print_operators()
 # pyhop.print_methods()
