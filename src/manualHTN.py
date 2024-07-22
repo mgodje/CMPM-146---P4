@@ -221,6 +221,22 @@ def produce (state, ID, item):
 	if item == 'wood': 
 		return [('produce_wood', ID)]
 	# your code here
+	elif item == 'cart': 
+		return [('produce_cart', ID)]
+	elif item == 'coal': 
+		return [('produce_coal', ID)]
+	elif item == 'cobble': 
+		return [('produce_cobble', ID)]
+	elif item == 'ingot': 
+		return [('produce_ingot', ID)]	
+	elif item == 'ore': 
+		return [('produce_ore', ID)]
+	elif item == 'plank': 
+		return [('produce_plank', ID)]
+	elif item == 'rail': 
+		return [('produce_rail', ID)]	
+	elif item == 'stick': 
+		return [('produce_stick', ID)]
 	elif item == 'wooden_axe':
 		# this check to make sure we're not making multiple axes
 		if state.made_wooden_axe[ID] is True:
@@ -228,6 +244,41 @@ def produce (state, ID, item):
 		else:
 			state.made_wooden_axe[ID] = True
 		return [('produce_wooden_axe', ID)]
+	elif item == 'iron_axe':
+		if state.made_iron_axe[ID] is True:
+			return False
+		else:
+			state.made_iron_axe[ID] = True
+	elif item == 'wooden_pickaxe':
+		if state.made_wooden_pickaxe[ID] is True:
+			return False
+		else:
+			state.made_wooden_pickaxe[ID] = True
+	elif item == 'stone_pickaxe':
+		if state.made_stone_pickaxe[ID] is True:
+			return False
+		else:
+			state.made_stone_pickaxe[ID] = True
+	elif item == 'iron_axe':
+		if state.made_iron_axe[ID] is True:
+			return False
+		else:
+			state.made_iron_axe[ID] = True
+	elif item == 'iron_pickaxe':
+		if state.made_iron_pickaxe[ID] is True:
+			return False
+		else:
+			state.made_iron_pickaxe[ID] = True
+	elif item == 'furnace':
+		if state.made_furnace[ID] is True:
+			return False
+		else:
+			state.made_furnace[ID] = True
+	elif item == 'bench':
+		if state.made_bench[ID] is True:
+			return False
+		else:
+			state.made_bench[ID] = True
 	else:
 		return False
 
@@ -318,6 +369,7 @@ def smelt_ore_in_furnace (state, ID):
 
 pyhop.declare_methods ('produce_wood', punch_for_wood)
 pyhop.declare_methods ('produce_wooden_axe', craft_wooden_axe_at_bench)
+
 # do we need these?
 
 pyhop.declare_methods ('produce_stone_axe', craft_stone_axe_at_bench)
