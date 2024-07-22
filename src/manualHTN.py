@@ -333,10 +333,7 @@ def iron_pickaxe_for_cobble (state, ID):
     return [('have_enough', ID, 'iron_pickaxe', 1), ('op_iron_pickaxe_for_cobble', ID)]
 
 def stone_axe_for_wood(state, ID):
-    return [('have_enough', ID, 'iron_axe', 1), ('op_stone_axe_for_wood', ID)]
-
-def stone_axe_for_wood (state, ID):
-	return [('op_stone_axe_for_wood', ID)]
+    return [('have_enough', ID, 'stone_axe', 1), ('op_stone_axe_for_wood', ID)]
 
 def craft_iron_pickaxe_at_bench (state, ID):
 	return [('have_enough', ID, 'bench', 1), ('have_enough', ID, 'stick', 2), ('have_enough', ID, 'ingot', 3), ('op_craft_iron_pickaxe_at_bench', ID)]
@@ -345,22 +342,22 @@ def craft_furnace_at_bench (state, ID):
 	return [('have_enough', ID, 'bench', 1), ('have_enough', ID, 'cobble', 8), ('op_craft_furnace_at_bench', ID)]
 
 def stone_pickaxe_for_ore (state, ID):
-	return [('op_stone_pickaxe_for_ore', ID)]
+	return [('have_enough', ID, 'stone_pickaxe', 1), ('op_stone_pickaxe_for_ore', ID)]
 
 def craft_iron_axe_at_bench (state, ID):
 	return [('have_enough', ID, 'bench', 1), ('have_enough', ID, 'stick', 2), ('have_enough', ID, 'ingot', 3), ('op_craft_iron_axe_at_bench', ID)]
 
 def stone_pickaxe_for_coal (state, ID):
-	return [('op_stone_pickaxe_for_coal', ID)]
+	return [('have_enough', ID, 'stone_pickaxe', 1), ('op_stone_pickaxe_for_coal', ID)]
 
 def stone_pickaxe_for_cobble (state, ID):
-	return [('op_stone_pickaxe_for_cobble', ID)]
+	return [('have_enough', ID, 'stone_pickaxe', 1), ('op_stone_pickaxe_for_cobble', ID)]
 
 def wooden_pickaxe_for_cobble (state, ID):
-	return [('op_wooden_pickaxe_for_cobble', ID)]
+	return [('have_enough', ID, 'wooden_pickaxe', 1), ('op_wooden_pickaxe_for_cobble', ID)]
 
 def iron_pickaxe_for_coal (state, ID):
-	return [('op_iron_pickaxe_for_coal', ID)]
+	return [('have_enough', ID, 'iron_pickaxe', 1), ('op_iron_pickaxe_for_coal', ID)]
 
 def craft_bench (state, ID):
 	return [('have_enough', ID, 'plank', 4), ('op_craft_bench', ID)]
@@ -371,7 +368,7 @@ def craft_stone_axe_at_bench (state, ID):
 def smelt_ore_in_furnace (state, ID):
 	return [('have_enough', ID, 'furnace', 1), ('have_enough', ID, 'ore', 1), ('have_enough', ID, 'coal', 1), ('op_smelt_ore_in_furnace', ID)]
 
-pyhop.declare_methods ('produce_wood', punch_for_wood)
+pyhop.declare_methods ('produce_wood', punch_for_wood) #wooden_axe_for_wood, stone_axe_for_wood, iron_axe_for_wood ?
 pyhop.declare_methods ('produce_wooden_axe', craft_wooden_axe_at_bench)
 
 # do we need these???
