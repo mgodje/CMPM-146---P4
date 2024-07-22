@@ -136,6 +136,7 @@ def op_stone_pickaxe_for_ore (state, ID):
         state.time[ID] -= 4
         return state
     return False
+
 def op_craft_iron_axe_at_bench (state, ID):
     if state.time[ID] >= 1 and state.bench[ID] >= 1 and state.ingot[ID] >= 3 and state.stick[ID] >=2:
         state.iron_axe[ID] += 1
@@ -152,21 +153,13 @@ def op_stone_pickaxe_for_coal (state, ID):
         return state
     return False
 
-def op_craft_wooden_axe_at_bench (state, ID):
-    if state.time[ID] >= 1 and state.bench[ID] >= 1 and state.plank[ID] >= 3 and state.stick[ID] >=2:
-        state.wooden_axe[ID] += 1
-        state.plank[ID] -= 3
-        state.stick[ID] -= 2
-        state.time[ID] -= 1
-        return state
-    return False
-
 def op_stone_pickaxe_for_cobble (state, ID):
     if state.time[ID] >= 2:
         state.cobble[ID] += 1
         state.time[ID] -= 2
         return state
     return False
+
 def op_wooden_pickaxe_for_cobble (state, ID):
     if state.time[ID] >= 4:
         state.cobble[ID] += 1
@@ -206,7 +199,12 @@ def op_smelt_ore_in_furnace (state, ID):
         return state
     return False
 
-pyhop.declare_operators (op_punch_for_wood, op_craft_wooden_axe_at_bench)
+pyhop.declare_operators (op_punch_for_wood, op_craft_wooden_axe_at_bench, op_iron_ax_for_wood, op_craft_wooden_pickaxe_at_bench, 
+						 op_craft_stone_pickaxe_at_bench, op_wooden_pickaxe_for_coal, op_iron_pickaxe_for_ore, op_wooden_axe_for_wood, 
+						 op_craft_plank, op_craft_stick, op_craft_rail_at_bench, op_craft_cart_at_bench, op_iron_pickaxe_for_cobble,
+						 op_stone_axe_for_wood, op_craft_iron_pickaxe_at_bench, op_craft_furnace_at_bench, op_stone_pickaxe_for_ore, 
+						 op_craft_iron_axe_at_bench, op_stone_pickaxe_for_coal, op_stone_pickaxe_for_cobble, op_wooden_pickaxe_for_cobble, 
+						 op_iron_pickaxe_for_coal, op_craft_bench, op_craft_stone_axe_at_bench, op_smelt_ore_in_furnace)
 
 '''end operators'''
 
