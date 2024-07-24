@@ -15,7 +15,7 @@ def produce (state, ID, item):
 
 pyhop.declare_methods ('produce', produce)
 
-def make_method (name, rule):
+def make_method (name, rule): # rule is the json (dict)
 	def method (state, ID):
 		# your code here
 		pass
@@ -47,6 +47,23 @@ def add_heuristic (data, ID):
 	# e.g. def heuristic2(...); pyhop.add_check(heuristic2)
 	def heuristic (state, curr_task, tasks, plan, depth, calling_stack):
 		# your code here
+
+		# use the calling_stack to get the current task and the tasks that are left
+		# use the plan to get the current plan
+		# use the state to get the current state
+		# use the data to get the recipes and the tools
+		# use the ID to get the agent's ID
+		# use the depth to get the current depth of the search tree
+		# use the curr_task to get the current task
+		# use tasks to get the tasks that are left
+
+		# if depth > 10: return True # if True, prune this branch
+		# if curr_task == 'produce_cart':
+		# 	if getattr(state,'cart')[ID] >= 1: return True # if True, prune this branch
+		
+		# if curr_task == 'produce_rail':
+		# 	if getattr(state,'rail')[ID] >= 20: return True # if True, prune this branch
+
 		return False # if True, prune this branch
 
 	pyhop.add_check(heuristic)
