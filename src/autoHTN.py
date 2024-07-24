@@ -18,8 +18,9 @@ pyhop.declare_methods ('produce', produce)
 def make_method (name, rule): # rule is the json (dict)
 	def method (state, ID):
 		# your code here
-		pass
 
+		pass
+	
 	return method
 
 def declare_methods (data):
@@ -33,12 +34,132 @@ def declare_methods (data):
 def make_operator (rule):
 	def operator (state, ID):
 		# your code here
-		pass
+		if rule["Time"] < state.time[ID]:
+			return False
+		for item in rule["Requires"]:
+			if getattr(state, item[ID]) < rule["Requires"].get(item):
+				return False
+		for item in rule["Consumes"]:
+			if getattr(state, item[ID]) < rule["Consumes"].get(item):
+				return False
+			else:
+				setattr(state, item[ID], getattr(state, item) - rule["Consumes"].get(item))
+		for item in rule["Produces"]:
+			setattr(state, item[ID], rule["Produces"].get(item))
+		return state
+	
 	return operator
 
 def declare_operators (data):
 	# your code here
 	# hint: call make_operator, then declare the operator to pyhop using pyhop.declare_operators(o1, o2, ..., ok)
+	def op_punch_for_wood(state, ID):
+		state = make_operator(data["Recipes"]["punch for wood"])
+		return state
+	
+	def op_craft_wooden_axe_at_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft wooden_axe at bench"])
+		return state
+	
+	def op_iron_axe_for_wood(state, ID):
+		state = make_operator(data["Recipes"]["iron_axe for wood"])
+		return state
+	
+	def op_craft_wooden_pickaxe_at_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft wooden_pickaxe at bench"])
+		return state
+	
+	def op_craft_stone_pickaxe_at_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft stone_pickaxe at bench"])
+		return state
+	
+	def op_wooden_pickaxe_for_coal(state, ID):
+		state = make_operator(data["Recipes"]["wooden_pickaxe for coal"])
+		return state
+	
+	def op_iron_pickaxe_for_ore(state, ID):
+		state = make_operator(data["Recipes"]["iron_pickaxe for ore"])
+		return state
+	
+	def op_wooden_axe_for_wood(state, ID):
+		state = make_operator(data["Recipes"]["wooden_axe for wood"])
+		return state
+	
+	def op_craft_plank(state, ID):
+		state = make_operator(data["Recipes"]["craft plank"])
+		return state
+	
+	def op_craft_stick(state, ID):
+		state = make_operator(data["Recipes"]["craft stick"])
+		return state
+	
+	def op_craft_rail_at_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft rail at bench"])
+		return state
+	
+	def op_craft_cart_at_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft cart at bench"])
+		return state
+	
+	def op_iron_pickaxe_for_cobble(state, ID):
+		state = make_operator(data["Recipes"]["iron_pickaxe for cobble"])
+		return state
+	
+	def op_stone_axe_for_wood(state, ID):
+		state = make_operator(data["Recipes"]["stone_axe for wood"])
+		return state
+	
+	def op_craft_iron_pickaxe_at_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft iron_pickaxe at bench"])
+		return state
+	
+	def op_craft_furnace_at_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft furnace at bench"])
+		return state
+	
+	def op_stone_pickaxe_for_ore(state, ID):
+		state = make_operator(data["Recipes"]["stone_pickaxe for ore"])
+		return state
+	
+	def op_craft_iron_axe_at_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft iron_axe at bench"])
+		return state
+	
+	def op_stone_pickaxe_for_coal(state, ID):
+		state = make_operator(data["Recipes"]["stone_pickaxe for coal"])
+		return state
+	
+	def op_stone_pickaxe_for_cobble(state, ID):
+		state = make_operator(data["Recipes"]["stone_pickaxe for cobble"])
+		return state
+	
+	def op_wooden_pickaxe_for_cobble(state, ID):
+		state = make_operator(data["Recipes"]["wooden_pickaxe for cobble"])
+		return state
+	
+	def op_iron_pickaxe_for_coal(state, ID):
+		state = make_operator(data["Recipes"]["iron_pickaxe for coal"])
+		return state
+	
+	def op_craft_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft bench"])
+		return state
+	
+	def op_craft_stone_axe_at_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft stone_axe at bench"])
+		return state
+	
+	def op_smelt_ore_in_furnace(state, ID):
+		state = make_operator(data["Recipes"]["smelt ore in furnace"])
+		return state
+
+	pyhop.declare_operators (op_punch_for_wood, op_craft_wooden_axe_at_bench, op_iron_axe_for_wood, op_craft_wooden_pickaxe_at_bench, 
+						 op_craft_stone_pickaxe_at_bench, op_wooden_pickaxe_for_coal, op_iron_pickaxe_for_ore, op_wooden_axe_for_wood, 
+						 op_craft_plank, op_craft_stick, op_craft_rail_at_bench, op_craft_cart_at_bench, op_iron_pickaxe_for_cobble,
+						 op_stone_axe_for_wood, op_craft_iron_pickaxe_at_bench, op_craft_furnace_at_bench, op_stone_pickaxe_for_ore, 
+						 op_craft_iron_axe_at_bench, op_stone_pickaxe_for_coal, op_stone_pickaxe_for_cobble, op_wooden_pickaxe_for_cobble, 
+						 op_iron_pickaxe_for_coal, op_craft_bench, op_craft_stone_axe_at_bench, op_smelt_ore_in_furnace)
+	
 	pass
 
 def add_heuristic (data, ID):
@@ -67,7 +188,6 @@ def add_heuristic (data, ID):
 		return False # if True, prune this branch
 
 	pyhop.add_check(heuristic)
-
 
 def set_up_state (data, ID, time=0):
 	state = pyhop.State('state')
