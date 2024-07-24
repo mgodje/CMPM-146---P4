@@ -57,6 +57,10 @@ def declare_operators (data):
 		state = make_operator(data["Recipes"]["punch for wood"])
 		return state
 	
+	def op_craft_wooden_axe_at_bench(state, ID):
+		state = make_operator(data["Recipes"]["craft wooden_axe at bench"])
+		return state
+	
 	def op_iron_axe_for_wood(state, ID):
 		state = make_operator(data["Recipes"]["iron_axe for wood"])
 		return state
@@ -149,6 +153,13 @@ def declare_operators (data):
 		state = make_operator(data["Recipes"]["smelt ore in furnace"])
 		return state
 
+	pyhop.declare_operators (op_punch_for_wood, op_craft_wooden_axe_at_bench, op_iron_axe_for_wood, op_craft_wooden_pickaxe_at_bench, 
+						 op_craft_stone_pickaxe_at_bench, op_wooden_pickaxe_for_coal, op_iron_pickaxe_for_ore, op_wooden_axe_for_wood, 
+						 op_craft_plank, op_craft_stick, op_craft_rail_at_bench, op_craft_cart_at_bench, op_iron_pickaxe_for_cobble,
+						 op_stone_axe_for_wood, op_craft_iron_pickaxe_at_bench, op_craft_furnace_at_bench, op_stone_pickaxe_for_ore, 
+						 op_craft_iron_axe_at_bench, op_stone_pickaxe_for_coal, op_stone_pickaxe_for_cobble, op_wooden_pickaxe_for_cobble, 
+						 op_iron_pickaxe_for_coal, op_craft_bench, op_craft_stone_axe_at_bench, op_smelt_ore_in_furnace)
+	
 	pass
 
 def add_heuristic (data, ID):
