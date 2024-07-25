@@ -121,6 +121,7 @@ def declare_methods (data):
 	pyhop.declare_methods ('produce_bench', craft_bench)
 	pyhop.declare_methods ('produce_cobble', iron_pickaxe_for_cobble)
 	pyhop.declare_methods ('produce_cobble', stone_pickaxe_for_cobble)
+	pyhop.declare_methods ('produce_cobble', wooden_pickaxe_for_cobble)
 	pyhop.declare_methods ('produce_coal', wooden_pickaxe_for_coal)
 	pyhop.declare_methods ('produce_coal', iron_pickaxe_for_coal)
 	pyhop.declare_methods ('produce_coal', stone_pickaxe_for_coal)
@@ -135,10 +136,8 @@ def declare_methods (data):
 	pyhop.declare_methods ('produce_iron_axe', craft_iron_axe_at_bench)
 	pyhop.declare_methods ('produce_wooden_pickaxe', craft_wooden_pickaxe_at_bench)
 	pyhop.declare_methods ('produce_rail', craft_rail_at_bench)
-	pyhop.declare_methods ('produce_cart', craft_cart_at_bench)
+	pyhop.declare_methods ('produce_cart', craft_cart_at_bench)			
 	
-	pass			
-
 def make_operator (rule):
 	def operator (state, ID):
 		# your code here
