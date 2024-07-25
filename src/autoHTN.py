@@ -137,7 +137,7 @@ def declare_methods (data):
 	pyhop.declare_methods ('produce_wooden_pickaxe', craft_wooden_pickaxe_at_bench)
 	pyhop.declare_methods ('produce_rail', craft_rail_at_bench)
 	pyhop.declare_methods ('produce_cart', craft_cart_at_bench)			
-	
+
 def make_operator (rule):
 	def operator (state, ID):
 		# your code here
@@ -286,28 +286,28 @@ def add_heuristic (data, ID):
 		# use the depth to get the current depth of the search tree
 		# calling_stack is to get the current task and the tasks that are left
 
-		if depth > 10: return True
-		if curr_task == 'produce_furnace':
-			if getattr(state,'furnace')[ID] >= 1: return True
-		if curr_task == 'produce_bench':
-			if getattr(state,'bench')[ID] >= 1: return True
-		if curr_task == 'produce_iron_pickaxe':
-			if getattr(state,'iron_pickaxe')[ID] >= 1: return True
-		if curr_task == 'produce_iron_axe':
-			if getattr(state,'iron_axe')[ID] >= 1: return True
-		if curr_task == 'produce_stone_pickaxe':
-			if getattr(state,'stone_pickaxe')[ID] >= 1: return True
-		if curr_task == 'produce_stone_axe':
-			if getattr(state,'stone_axe')[ID] >= 1: return True
-		if curr_task == 'produce_wooden_pickaxe':
-			if getattr(state,'wooden_pickaxe')[ID] >= 1: return True
-		if curr_task == 'produce_wooden_axe':
-			if getattr(state,'wooden_axe')[ID] >= 1: return True
+		for task in tasks:
+			if depth > 10: return True
+			if curr_task == 'produce_furnace':
+				if getattr(state,'furnace')[ID] >= 1: return True
+			if curr_task == 'produce_bench':
+				if getattr(state,'bench')[ID] >= 1: return True
+			if curr_task == 'produce_iron_pickaxe':
+				if getattr(state,'iron_pickaxe')[ID] >= 1: return True
+			if curr_task == 'produce_iron_axe':
+				if getattr(state,'iron_axe')[ID] >= 1: return True
+			if curr_task == 'produce_stone_pickaxe':
+				if getattr(state,'stone_pickaxe')[ID] >= 1: return True
+			if curr_task == 'produce_stone_axe':
+				if getattr(state,'stone_axe')[ID] >= 1: return True
+			if curr_task == 'produce_wooden_pickaxe':
+				if getattr(state,'wooden_pickaxe')[ID] >= 1: return True
+			if curr_task == 'produce_wooden_axe':
+				if getattr(state,'wooden_axe')[ID] >= 1: return True
 
 		return False # if True, prune this branch
 
 	pyhop.add_check(heuristic)
-
 
 def set_up_state (data, ID, time=0):
 	state = pyhop.State('state')
