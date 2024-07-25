@@ -302,12 +302,14 @@ def add_heuristic (data, ID):
 				if getattr(state,'wooden_pickaxe')[ID] >= 1: return True
 			if curr_task == 'produce_wooden_axe':
 				if getattr(state,'wooden_axe')[ID] >= 1: return True
+			if curr_task == 'produce_cart':
+				if getattr(state,'cart')[ID] >= 1: return True
+			if curr_task == 'produce_rail':
+				if getattr(state,'rail')[ID] >= 20: return True
 
 		return False
 
-
 	pyhop.add_check(heuristic)
-
 
 def set_up_state (data, ID, time=0):
 	state = pyhop.State('state')
