@@ -169,21 +169,33 @@ def add_heuristic (data, ID):
 	def heuristic (state, curr_task, tasks, plan, depth, calling_stack):
 		# your code here
 
-		# use the calling_stack to get the current task and the tasks that are left
-		# use the plan to get the current plan
-		# use the state to get the current state
 		# use the data to get the recipes and the tools
 		# use the ID to get the agent's ID
-		# use the depth to get the current depth of the search tree
-		# use the curr_task to get the current task
-		# use tasks to get the tasks that are left
 
-		# if depth > 10: return True # if True, prune this branch
-		# if curr_task == 'produce_cart':
-		# 	if getattr(state,'cart')[ID] >= 1: return True # if True, prune this branch
-		
-		# if curr_task == 'produce_rail':
-		# 	if getattr(state,'rail')[ID] >= 20: return True # if True, prune this branch
+		# state = current state
+		# curr_task = current task
+		# use tasks to get the tasks that are left
+		# plan = current plan
+		# use the depth to get the current depth of the search tree
+		# calling_stack is to get the current task and the tasks that are left
+
+		if depth > 10: return True
+		if curr_task == 'produce_furnace':
+			if getattr(state,'furnace')[ID] >= 1: return True
+		if curr_task == 'produce_bench':
+			if getattr(state,'bench')[ID] >= 1: return True
+		if curr_task == 'produce_iron_pickaxe':
+			if getattr(state,'iron_pickaxe')[ID] >= 1: return True
+		if curr_task == 'produce_iron_axe':
+			if getattr(state,'iron_axe')[ID] >= 1: return True
+		if curr_task == 'produce_stone_pickaxe':
+			if getattr(state,'stone_pickaxe')[ID] >= 1: return True
+		if curr_task == 'produce_stone_axe':
+			if getattr(state,'stone_axe')[ID] >= 1: return True
+		if curr_task == 'produce_wooden_pickaxe':
+			if getattr(state,'wooden_pickaxe')[ID] >= 1: return True
+		if curr_task == 'produce_wooden_axe':
+			if getattr(state,'wooden_axe')[ID] >= 1: return True
 
 		return False # if True, prune this branch
 
