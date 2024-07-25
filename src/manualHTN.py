@@ -368,20 +368,13 @@ def craft_stone_axe_at_bench (state, ID):
 def smelt_ore_in_furnace (state, ID):
 	return [('have_enough', ID, 'furnace', 1), ('have_enough', ID, 'ore', 1), ('have_enough', ID, 'coal', 1), ('op_smelt_ore_in_furnace', ID)]
 
-pyhop.declare_methods ('produce_wood', punch_for_wood)
-pyhop.declare_methods ('produce_wood', wooden_axe_for_wood)
-pyhop.declare_methods ('produce_wood', stone_axe_for_wood)
-pyhop.declare_methods ('produce_wood', iron_axe_for_wood)
-pyhop.declare_methods ('produce_plank', craft_plank)
+pyhop.declare_methods ('produce_wood', [punch_for_wood, wooden_axe_for_wood, stone_axe_for_wood, iron_axe_for_wood])
 pyhop.declare_methods ('produce_stick', craft_stick)
 pyhop.declare_methods ('produce_bench', craft_bench)
-pyhop.declare_methods ('produce_cobble', iron_pickaxe_for_cobble)
-pyhop.declare_methods ('produce_cobble', stone_pickaxe_for_cobble)
-pyhop.declare_methods ('produce_coal', wooden_pickaxe_for_coal)
-pyhop.declare_methods ('produce_coal', iron_pickaxe_for_coal)
-pyhop.declare_methods ('produce_coal', stone_pickaxe_for_coal)
-pyhop.declare_methods ('produce_ore', stone_pickaxe_for_ore)
-pyhop.declare_methods ('produce_ore', iron_pickaxe_for_ore)
+pyhop.declare_methods ('produce_cobble', [iron_pickaxe_for_cobble, stone_pickaxe_for_cobble, wooden_pickaxe_for_cobble])
+pyhop.declare_methods ('produce_coal', [wooden_pickaxe_for_coal, iron_pickaxe_for_coal, stone_pickaxe_for_coal])
+pyhop.declare_methods ('produce_ore', [stone_pickaxe_for_ore, iron_pickaxe_for_ore])
+pyhop.declare_methods ('produce_ingot', smelt_ore_in_furnace)
 pyhop.declare_methods ('produce_wooden_axe', craft_wooden_axe_at_bench)
 pyhop.declare_methods ('produce_stone_axe', craft_stone_axe_at_bench)
 pyhop.declare_methods ('produce_iron_pickaxe', craft_iron_pickaxe_at_bench)
@@ -391,6 +384,7 @@ pyhop.declare_methods ('produce_iron_axe', craft_iron_axe_at_bench)
 pyhop.declare_methods ('produce_wooden_pickaxe', craft_wooden_pickaxe_at_bench)
 pyhop.declare_methods ('produce_rail', craft_rail_at_bench)
 pyhop.declare_methods ('produce_cart', craft_cart_at_bench)
+pyhop.declare_methods ('produce_plank', craft_plank)	
 
 '''end recipe methods'''
 
