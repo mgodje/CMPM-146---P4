@@ -286,8 +286,14 @@ def add_heuristic (data, ID):
 		# use the depth to get the current depth of the search tree
 		# calling_stack is to get the current task and the tasks that are left
 
+		# if the current task is complete, return true
+		# if the current task is not complete, check if the task can be completed
+		# if the task can be completed, return true
+		# else return false
+
 		for task in tasks:
-			if depth > 10: return True
+			if task[0] == curr_task:
+				return False
 			if curr_task == 'produce_furnace':
 				if getattr(state,'furnace')[ID] >= 1: return True
 			if curr_task == 'produce_bench':
@@ -305,7 +311,7 @@ def add_heuristic (data, ID):
 			if curr_task == 'produce_wooden_axe':
 				if getattr(state,'wooden_axe')[ID] >= 1: return True
 
-		return False # if True, prune this branch
+		return False
 
 	pyhop.add_check(heuristic)
 
