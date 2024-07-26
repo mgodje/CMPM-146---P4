@@ -22,13 +22,15 @@ def make_method (name, rule):
 		#print(rule)
 		#print(rule[1]['Requires'])
 		arr = []
-		for item in rule[1]['Requires']:
-			enough = ('have_enough', ID, item[0], item[1])
-			arr.append(enough)
-		for item in rule[1]['Consumes']:
-			enough = ('have_enough', ID, item[0], item[1])
-			arr.append(enough)
-		arr.append(name, ID)
+		if 1 in rule:
+			for item in rule[1]['Requires']:
+				enough = ('have_enough', ID, item[0], item[1])
+				arr.append(enough)
+			for item in rule[1]['Consumes']:
+				enough = ('have_enough', ID, item[0], item[1])
+				arr.append(enough)
+		
+		arr.append((name, ID))
 		return arr
 	
 	return method(state, "agent")
@@ -72,10 +74,12 @@ def declare_methods (data):
 	pyhop.print_methods()
 
 
-def make_operator (rule):
+def make_operator (rule, ID):
 	def operator (state, ID):
 		# your code here
-		print(rule[0])
+		#print(rule[0])
+		print("state: ")
+		print(state)
 		if rule[1]['Time'] < state.time[ID]:
 			#print(rule[1]['Time'])
 			return False
@@ -95,7 +99,7 @@ def make_operator (rule):
 		print("state: " + state)
 		return state
 	
-	return operator(state, "agent")
+	return operator(state, ID)
 
 def declare_operators (data):
 	# your code here
