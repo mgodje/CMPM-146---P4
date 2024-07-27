@@ -138,7 +138,9 @@ def add_heuristic (data, ID):
 		# if the current task is not complete, check if the task can be completed
 		# if the task can be completed, return true
 		# else return false
-		
+	
+		# if you have what is given, just return check
+
 		for task in tasks:
 			if task[0] == curr_task:
 				return False
@@ -159,17 +161,13 @@ def add_heuristic (data, ID):
 			if curr_task == 'produce_wooden_axe':
 				if getattr(state,'wooden_axe')[ID] >= 1: return True
 			if curr_task == 'produce_wood':
-				if getattr(state,'cart')[ID] >= 1: return True
+				if getattr(state,'wood')[ID] >= 1: return True
 			if curr_task == 'produce_stick':
-				if getattr(state,'cart')[ID] >= 1: return True
-			if curr_task == 'produce_cart':
-				if getattr(state,'cart')[ID] >= 1: return True
-			if curr_task == 'produce_cart':
-				if getattr(state,'cart')[ID] >= 1: return True
-			if curr_task == 'produce_cart':
-				if getattr(state,'cart')[ID] >= 1: return True
+				if getattr(state,'stick')[ID] >= 1: return True
 			if curr_task == 'produce_rail':
 				if getattr(state,'rail')[ID] >= 20: return True
+			if curr_task == 'produce_cart':
+				if getattr(state,'cart')[ID] >= 1: return True
 
 		return False
 

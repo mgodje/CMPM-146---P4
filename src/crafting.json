@@ -21,6 +21,7 @@
    "wooden_pickaxe"
  ],
  "Initial": {
+    "pkank": 1
  },
  "Goal": {
    "plank": 1
