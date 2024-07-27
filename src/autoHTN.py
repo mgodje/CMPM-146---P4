@@ -88,22 +88,33 @@ def make_operator (rule):
 		# your code here
 		#print(rule[0])
 		#print("state: ")
-		#print(state)
-		if rule[1]['Time'] < state.time[ID]:
+		print("rule: ")
+		print(rule)
+		if rule['Time'] > state.time[ID]:
 			#print(rule[1]['Time'])
 			return False
-		for item, amount in rule[1]['Requires']:
-			#print("item: " + item)
-			#print("getattr(state, item)[ID]" + getattr(state, item)[ID])
-			if getattr(state, item)[ID] < amount:
-				return False
-		for item, amount in rule[1]['Consumes']:
-			if getattr(state, item)[ID] < amount:
-				return False
-			else:
-				setattr(state, item, {ID: getattr(state, item)[ID] - rule[1]['Consumes'].get(item)})
-		for item, amount in rule[1]['Produces']:
-			setattr(state, item[ID], amount)
+		if "Requires" in rule:
+			for item, amount in rule['Requires'].items():
+				#print("item: " + item)
+				#print("getattr(state, item)[ID]" + getattr(state, item)[ID])
+				if getattr(state, item)[ID] < amount:
+					return False
+		
+		if "Consumes" in rule:
+			for item, amount in rule['Consumes'].items():
+				if getattr(state, item)[ID] < amount:
+					return False
+				else:
+					setattr(state, item, {ID: getattr(state, item)[ID] - rule['Consumes'].get(item)})
+		
+		if "Produces" in rule:
+			print("rule[1]['Produces']: ")
+			print(rule['Produces'])
+			for item, amount in rule['Produces'].items():
+				new_value = getattr(state, item)[ID] + amount
+				#print("item, amount: " + item + amount)
+				state.time[ID] = state.time[ID] - rule['Time']
+				setattr(state, item, {ID:new_value})
 		
 		#print("state: " + state)
 		return state
@@ -116,17 +127,12 @@ def declare_operators (data):
 	
 	for rule in data['Recipes'].items():
 		#print(rule)
-		operator = make_operator(rule)
+		operator = make_operator(rule[1])
 		operator.__name__ = "op_" + rule[0].replace(" ", "_")
 		#print(operator)
 		pyhop.declare_operators(operator)
 	
-	"""
-	print("========operators=======")
-	pyhop.print_operators()"""
 	
-	pass
-
 def add_heuristic (data, ID):
 	# prune search branch if heuristic() returns True
 	# do not change parameters to heuristic(), but can add more heuristic functions with the same parameters: 
@@ -148,36 +154,11 @@ def add_heuristic (data, ID):
 		# if the current task is not complete, check if the task can be completed
 		# if the task can be completed, return true
 		# else return false
-	
-		# if you have what is given, just return check
-
-		for task in tasks:
-			if task[0] == curr_task:
-				return False
-			if curr_task == 'produce_furnace':
-				if getattr(state,'furnace')[ID] >= 1: return True
-			if curr_task == 'produce_bench':
-				if getattr(state,'bench')[ID] >= 1: return True
-			if curr_task == 'produce_iron_pickaxe':
-				if getattr(state,'iron_pickaxe')[ID] >= 1: return True
-			if curr_task == 'produce_iron_axe':
-				if getattr(state,'iron_axe')[ID] >= 1: return True
-			if curr_task == 'produce_stone_pickaxe':
-				if getattr(state,'stone_pickaxe')[ID] >= 1: return True
-			if curr_task == 'produce_stone_axe':
-				if getattr(state,'stone_axe')[ID] >= 1: return True
-			if curr_task == 'produce_wooden_pickaxe':
-				if getattr(state,'wooden_pickaxe')[ID] >= 1: return True
-			if curr_task == 'produce_wooden_axe':
-				if getattr(state,'wooden_axe')[ID] >= 1: return True
-			if curr_task == 'produce_wood':
-				if getattr(state,'wood')[ID] >= 1: return True
-			if curr_task == 'produce_stick':
-				if getattr(state,'stick')[ID] >= 1: return True
-			if curr_task == 'produce_rail':
-				if getattr(state,'rail')[ID] >= 20: return True
-			if curr_task == 'produce_cart':
-				if getattr(state,'cart')[ID] >= 1: return True
+		print("State: ")
+		pyhop.print_state(state)
+		
+		if depth > 10:
+			return True
 
 		return False
 
@@ -229,96 +210,3 @@ if __name__ == '__main__':
 	pyhop.pyhop(state, goals, verbose=3)
 	# pyhop.pyhop(state, [('have_enough', 'agent', 'cart', 1),('have_enough', 'agent', 'rail', 20)], verbose=3)
 
-"""FOR METHOD
-def punch_for_wood (state, ID):
-	return make_method('op_punch_for_wood', data["Recipes"]["punch for wood"])
-
-def craft_wooden_axe_at_bench (state, ID):
-	return make_method('op_craft_wooden_axe_at_bench', data["Recipes"]["craft wooden_axe at bench"])
-
-def iron_axe_for_wood (state, ID):
-	return make_method('op_iron_axe_for_wood', data["Recipes"]["iron_axe for wood"])
-
-def craft_wooden_pickaxe_at_bench (state, ID):
-	return make_method('op_craft_wooden_pickaxe_at_bench', data["Recipes"]["craft wooden_pickaxe at bench"])
-
-def craft_stone_pickaxe_at_bench (state, ID):
-	return make_method('op_craft_stone_pickaxe_at_bench', data["Recipes"]["craft stone_pickaxe at bench"])
-
-def wooden_pickaxe_for_coal (state, ID):
-	return make_method('op_wooden_pickaxe_for_coal', data["Recipes"]["wooden_pickaxe for coal"])
-
-def iron_pickaxe_for_ore (state, ID):
-	return make_method('op_iron_pickaxe_for_ore', data["Recipes"]["iron_pickaxe for ore"])
-
-def wooden_axe_for_wood (state, ID):
-	return make_method('op_wooden_axe_for_wood', data["Recipes"]["wooden_axe for wood"])
-
-def craft_plank (state, ID):
-	return make_method('op_craft_plank', data["Recipes"]["craft plank"])
-
-def craft_stick (state, ID):
-	return make_method('op_craft_stick', data["Recipes"]["craft stick"])
-
-def craft_rail_at_bench (state, ID):
-	return make_method('op_craft_rail_at_bench', data["Recipes"]["craft rail at bench"])
-
-def craft_cart_at_bench (state, ID):
-	return make_method('op_craft_cart_at_bench', data["Recipes"]["craft cart at bench"])
-
-def iron_pickaxe_for_cobble (state, ID):
-	return make_method('op_iron_pickaxe_for_cobble', data["Recipes"]["iron_pickaxe for cobble"])
-
-def stone_axe_for_wood (state, ID):
-	return make_method('op_stone_axe_for_wood', data["Recipes"]["stone_axe for wood"])
-
-def craft_iron_pickaxe_at_bench (state, ID):
-	return make_method('op_craft_iron_pickaxe_at_bench', data["Recipes"]["craft iron_pickaxe at bench"])
-
-def craft_furnace_at_bench (state, ID):
-	return make_method('op_craft_furnace_at_bench', data["Recipes"]["craft furnace at bench"])
-
-def stone_pickaxe_for_ore (state, ID):
-	return make_method('op_stone_pickaxe_for_ore', data["Recipes"]["stone_pickaxe for ore"])
-
-def craft_iron_axe_at_bench (state, ID):
-	return make_method('op_craft_iron_axe_at_bench', data["Recipes"]["craft iron_axe at bench"])
-
-def stone_pickaxe_for_coal (state, ID):
-	return make_method('op_stone_pickaxe_for_coal', data["Recipes"]["stone_pickaxe for coal"])
-
-def stone_pickaxe_for_cobble (state, ID):
-	return make_method('op_stone_pickaxe_for_cobble', data["Recipes"]["stone_pickaxe for cobble"])
-
-def wooden_pickaxe_for_cobble (state, ID):
-	return make_method('op_wooden_pickaxe_for_cobble', data["Recipes"]["wooden_pickaxe for cobble"])
-
-def iron_pickaxe_for_coal (state, ID):
-	return make_method('op_iron_pickaxe_for_coal', data["Recipes"]["iron_pickaxe for coal"])
-
-def craft_bench (state, ID):
-	return make_method('op_craft_bench', data["Recipes"]["craft bench"])
-
-def craft_stone_axe_at_bench (state, ID):
-	return make_method('op_craft_stone_axe_at_bench', data["Recipes"]["craft stone_axe at bench"])
-
-def smelt_ore_in_furnace (state, ID):
-	return make_method('op_smelt_ore_in_furnace', data["Recipes"]["smelt ore in furnace"])
-
-pyhop.declare_methods ('produce_wood', [punch_for_wood, wooden_axe_for_wood, stone_axe_for_wood, iron_axe_for_wood])
-pyhop.declare_methods ('produce_stick', craft_stick)
-pyhop.declare_methods ('produce_bench', craft_bench)
-pyhop.declare_methods ('produce_cobble', [iron_pickaxe_for_cobble, stone_pickaxe_for_cobble, wooden_pickaxe_for_cobble])
-pyhop.declare_methods ('produce_coal', [wooden_pickaxe_for_coal, iron_pickaxe_for_coal, stone_pickaxe_for_coal])
-pyhop.declare_methods ('produce_ore', [stone_pickaxe_for_ore, iron_pickaxe_for_ore])
-pyhop.declare_methods ('produce_ingot', smelt_ore_in_furnace)
-pyhop.declare_methods ('produce_wooden_axe', craft_wooden_axe_at_bench)
-pyhop.declare_methods ('produce_stone_axe', craft_stone_axe_at_bench)
-pyhop.declare_methods ('produce_iron_pickaxe', craft_iron_pickaxe_at_bench)
-pyhop.declare_methods ('produce_furnace', craft_furnace_at_bench)
-pyhop.declare_methods ('produce_stone_pickaxe', craft_stone_pickaxe_at_bench)
-pyhop.declare_methods ('produce_iron_axe', craft_iron_axe_at_bench)
-pyhop.declare_methods ('produce_wooden_pickaxe', craft_wooden_pickaxe_at_bench)
-pyhop.declare_methods ('produce_rail', craft_rail_at_bench)
-pyhop.declare_methods ('produce_cart', craft_cart_at_bench)
-pyhop.declare_methods ('produce_plank', craft_plank)	"""
