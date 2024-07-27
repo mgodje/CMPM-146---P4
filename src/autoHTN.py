@@ -92,18 +92,18 @@ def make_operator (rule):
 		if rule[1]['Time'] < state.time[ID]:
 			#print(rule[1]['Time'])
 			return False
-		for item in rule[1]['Requires']:
+		for item, amount in rule[1]['Requires']:
 			#print("item: " + item)
 			#print("getattr(state, item)[ID]" + getattr(state, item)[ID])
-			if getattr(state, item)[ID] < rule[1]['Requires'].get(item):
+			if getattr(state, item)[ID] < amount:
 				return False
-		for item in rule[1]['Consumes']:
-			if getattr(state, item)[ID] < rule[1]['Consumes'].get(item):
+		for item, amount in rule[1]['Consumes']:
+			if getattr(state, item)[ID] < amount:
 				return False
 			else:
 				setattr(state, item, {ID: getattr(state, item)[ID] - rule[1]['Consumes'].get(item)})
-		for item in rule[1]['Produces']:
-			setattr(state, item[ID], rule[1]['Produces'].get(item))
+		for item, amount in rule[1]['Produces']:
+			setattr(state, item[ID], amount)
 		
 		#print("state: " + state)
 		return state
