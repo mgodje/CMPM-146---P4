@@ -21,14 +21,19 @@ def make_method (name, rule):
 		#
 		#print(rule[1]['Requires'])
 		arr = []
-		#print("rule: ")
+		
 		#print(type(rule))
-		if 1 in rule:
-			for item in rule[1]['Requires']:
-				enough = ('have_enough', ID, item[0], item[1])
+		#print("rule: ")
+		#print(rule[1])
+		if "Requires" in rule[1]:
+			for key, amount in rule[1]['Requires'].items():
+				#print("key: " + key)
+				enough = ('have_enough', ID, key, amount)
 				arr.append(enough)
-			for item in rule[1]['Consumes']:
-				enough = ('have_enough', ID, item[0], item[1])
+		
+		if "Consumes" in rule[1]:
+			for key, amount in rule[1]['Consumes'].items():
+				enough = ('have_enough', ID, key, amount)
 				arr.append(enough)
 		
 		arr.append((name, ID))
@@ -73,9 +78,9 @@ def declare_methods (data):
 		pyhop.declare_methods(task, *methods) 
 	
 
-
+	"""
 	print("========methods=======")
-	pyhop.print_methods()
+	pyhop.print_methods()"""
 
 
 def make_operator (rule):
@@ -116,8 +121,9 @@ def declare_operators (data):
 		#print(operator)
 		pyhop.declare_operators(operator)
 	
+	"""
 	print("========operators=======")
-	pyhop.print_operators()
+	pyhop.print_operators()"""
 	
 	pass
 
